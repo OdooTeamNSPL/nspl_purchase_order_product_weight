@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Line-level weight columns -->
+    <record id="view_order_form_inherit_weight" model="ir.ui.view">
+        <field name="name">purchase.order.form.weight</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='order_line']/list/field[@name='price_unit']" position="after">
+<!--                <field name="product_weight"/>-->
+                <field name="line_total_weight"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Show Total Weight on the left panel -->
+
+    <record id="view_order_form_inherit_total_weight_footer" model="ir.ui.view">
+        <field name="name">purchase.order.total.weight.footer</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='order_line']" position="after">
+                <div class="mt16" name="total_weight_display" groups="purchase.group_purchase_user">
+                    <label for="total_weight" string="Total Weight"/>
+                    <div>
+                        <field name="total_weight" widget="float"/>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
