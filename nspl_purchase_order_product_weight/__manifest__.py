@@ -1,6 +1,6 @@
 {
     'name': 'Purchase Order Product Weight Information',
-    'version': '18.0',
+    'version': '19.0.1',
     'summary': 'Show product weight in Purchase Order lines and reports.',
     'description': """
     This module displays product weight details directly in Purchase Orders:
@@ -26,7 +26,7 @@
     'data': [
         'views/purchase_order_views.xml',
         'report/purchase_order_report_templates.xml',
-        'report/purchase_order_report.xml',
+        # 'report/purchase_order_report.xml',
     ],
     'images': ['static/description/img/banner.png'],
     'installable': True,

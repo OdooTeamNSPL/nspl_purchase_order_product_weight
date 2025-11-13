@@ -1,35 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <template id="report_purchaseorder_document_inherit_weight" inherit_id="purchase.report_purchasequotation_document">
-        <xpath expr="//thead/tr" position="inside">
-            <th>Weight</th>
+        <xpath expr="//table/thead//tr[1]//th[2]" position="after">
+            <th class="text-end">Weight</th>
         </xpath>
-        <xpath expr="//tbody//tr/t[1]" position="inside">
+        <xpath expr="//table/tbody//tr[1]//td[2]" position="after">
             <td class="text-end">
                 <span t-field="order_line.line_total_weight"/>
             </td>
         </xpath>
-        <xpath expr="//p[@t-field='o.notes']" position="before">
+        <xpath expr="//p[@t-field='o.note']" position="before">
             <div class="text-end mt-3">
                 <strong>Total Weight:</strong>
-                <span t-field="o.total_weight"/>
+                <t t-esc="sum(line.product_qty * (line.product_id.weight or 0) for line in o.order_line)"/>
             </div>
         </xpath>
     </template>
 
     <template id="report_purchase_order_document_inherit_weight" inherit_id="purchase.report_purchaseorder_document">
-        <xpath expr="//th[@name='th_price_unit']" position="before">
-            <th>Weight</th>
+        <!-- Add Weight column header -->
+        <xpath expr="//table/thead//tr//th[2]" position="after">
+            <th class="text-end">Weight</th>
         </xpath>
-        <xpath expr="//tbody//tr//td[4]" position="before">
+
+        <!-- Add Weight value per line -->
+        <xpath expr="//table/tbody//tr//t//td[2]" position="after">
             <td class="text-end">
-                <span t-field="line.line_total_weight"/>
+                <t t-esc="line.product_qty * (line.product_id.weight or 0)"/>
             </td>
         </xpath>
-        <xpath expr="//p[@t-field='o.notes']" position="before">
+
+        <!-- Total weight below note -->
+        <xpath expr="//p[@t-field='o.note']" position="before">
             <div class="text-end mt-3">
                 <strong>Total Weight:</strong>
-                <span t-field="o.total_weight"/>
+                <t t-esc="sum(line.product_qty * (line.product_id.weight or 0) for line in o.order_line)"/>
             </div>
         </xpath>
     </template>
